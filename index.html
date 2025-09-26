@@ -6,143 +6,153 @@
 <title>Site do Moisés</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; scroll-behavior: smooth; }
+  * { margin:0; padding:0; box-sizing:border-box; scroll-behavior:smooth; }
   body { font-family:'Roboto', sans-serif; background:#f0f2f5; color:#333; }
 
-  /* Header */
+  /* Header com Parallax */
   header {
-    position: relative;
-    background: linear-gradient(90deg,#008345,#00b87a);
+    position:relative;
+    height:400px;
+    background:url('imagens/banner.jpg') no-repeat center/cover;
     color:#fff;
     text-align:center;
-    padding:60px 20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
     overflow:hidden;
   }
-  header h1 { font-size:3rem; margin-bottom:10px; animation: slideDown 1s ease-out; }
-  header p { font-size:1.3rem; font-weight:400; animation: fadeIn 2s ease-in; }
+  header h1 { font-size:3rem; margin-bottom:10px; text-shadow:0 2px 8px rgba(0,0,0,0.4); animation:slideDown 1s ease-out; }
+  header p { font-size:1.3rem; font-weight:400; text-shadow:0 1px 6px rgba(0,0,0,0.4); animation:fadeIn 2s ease-in; }
 
-  @keyframes slideDown { from { transform:translateY(-50px); opacity:0; } to { transform:translateY(0); opacity:1; } }
-  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+  @keyframes slideDown { from{transform:translateY(-50px);opacity:0;} to{transform:translateY(0);opacity:1;} }
+  @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
 
-  /* Nav */
+  /* Nav horizontal */
   nav {
     background:#0b2400;
     display:flex;
     justify-content:center;
+    align-items:center;
+    gap:25px;
     padding:15px 0;
-    position: sticky;
+    position:sticky;
     top:0;
     z-index:100;
+    flex-wrap:wrap;
   }
   nav a {
     color:#fff;
-    margin:0 20px;
     text-decoration:none;
     font-weight:bold;
-    font-size:1.1rem;
+    font-size:1.2rem;
     transition:0.3s;
+    padding:5px 10px;
   }
-  nav a:hover { color:#ffd700; }
+  nav a:hover { color:#ffd700; background:rgba(255,255,255,0.1); border-radius:6px; }
 
-  /* Hamburger Menu Mobile */
-  .menu-toggle { display:none; cursor:pointer; position:absolute; right:20px; top:20px; flex-direction:column; gap:5px; }
-  .menu-toggle div { width:25px; height:3px; background:#fff; }
-
-  @media(max-width:768px){
-    nav { flex-direction:column; display:none; }
-    nav.active { display:flex; }
-    .menu-toggle { display:flex; }
-  }
-
-  /* Main */
+  /* Main e posts */
   main { display:flex; flex-wrap:wrap; max-width:1200px; margin:30px auto; gap:20px; padding:0 10px; }
-
   article {
     background:#fff;
-    border-radius:12px;
-    padding:25px;
+    border-radius:15px;
+    padding:20px;
     flex:1 1 400px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
-    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow:0 6px 18px rgba(0,0,0,0.1);
+    transition:transform 0.3s, box-shadow 0.3s;
+    position:relative;
+    overflow:hidden;
   }
-  article:hover { transform:translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.15); }
+  article:hover { transform:translateY(-8px); box-shadow:0 12px 25px rgba(0,0,0,0.2); }
   article h2 { margin-bottom:10px; color:#008345; }
   article p small { color:#888; }
-  article img { width:100%; border-radius:8px; margin:15px 0; }
+  article img { width:100%; border-radius:12px; margin:15px 0; transition:transform 0.5s; }
+  article img:hover { transform:scale(1.05); }
 
-  /* Aside */
+  /* Sidebar */
   aside {
     background:#fff;
-    border-radius:12px;
+    border-radius:15px;
     padding:25px;
-    flex:1 1 250px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    flex:1 1 300px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.1);
     height:fit-content;
+    position:sticky;
+    top:100px;
   }
   aside h3 { margin-bottom:15px; color:#008345; }
   aside ul { list-style:none; }
-  aside ul li { margin-bottom:10px; display:flex; align-items:center; gap:8px; }
-  aside ul li a { color:#0b2400; text-decoration:none; transition:0.3s; }
+  aside ul li { margin-bottom:15px; display:flex; align-items:center; gap:10px; transition:0.3s; }
+  aside ul li:hover { transform:translateX(5px); }
+  aside ul li a { color:#0b2400; text-decoration:none; font-weight:500; }
   aside ul li a:hover { color:#008345; }
+
+  /* Carrossel de posts */
+  .carousel { display:flex; overflow-x:auto; gap:20px; scroll-snap-type:x mandatory; padding-bottom:10px; }
+  .carousel article { flex:0 0 300px; scroll-snap-align:start; }
 
   /* Footer */
   footer {
     text-align:center;
-    padding:20px;
+    padding:30px;
     background:#0b2400;
     color:#fff;
-    margin-top:40px;
-    font-size:0.9rem;
+    font-size:1rem;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
   }
+  footer a { color:#fff; transition:0.3s; text-decoration:none; }
+  footer a:hover { color:#ffd700; }
 
   /* Responsivo */
-  @media(max-width:900px){ main{flex-direction:column;align-items:center;} article{margin-right:0;} }
+  @media(max-width:900px){ main{flex-direction:column;align-items:center;} article{margin-right:0;} aside{top:20px;} }
 </style>
 </head>
 <body>
 
 <header>
   <h1>Site do Moisés</h1>
-  <p>Compartilhando ideias, projetos e descobertas 🚀</p>
-  <div class="menu-toggle" onclick="toggleMenu()">
-    <div></div><div></div><div></div>
-  </div>
+  <p>Projetos, ideias e descobertas 🚀</p>
 </header>
 
-<nav id="nav">
+<nav>
   <a href="index.html">Início</a>
   <a href="sobre.html">Sobre</a>
   <a href="contato.html">Contato</a>
 </nav>
 
 <main>
-  <article>
-    <h2>Site no Ar</h2>
-    <p><small>Publicado em 26/09/2025</small></p>
-    <img src="imagens/site-ar.jpg" alt="Site no ar">
-    <p>Estou lançando o meu site no ar. 🚀 Confira e explore todos os conteúdos!</p>
-  </article>
+  <div class="carousel">
+    <article>
+      <h2>Site no Ar</h2>
+      <p><small>26/09/2025</small></p>
+      <img src="imagens/site-ar.jpg" alt="Site no ar">
+      <p>Estou lançando o meu site no ar. 🚀 Confira e explore todos os conteúdos!</p>
+    </article>
 
-  <article>
-    <h2>Organização Turbinada</h2>
-    <p><small>Publicado em 27/09/2025</small></p>
-    <img src="imagens/organizacao.jpg" alt="Organização">
-    <p>Hoje aprendi algo novo sobre produtividade: dividir tarefas em blocos de 25 minutos faz render MUITO mais. ☕📚 Testa aí!</p>
-  </article>
+    <article>
+      <h2>Organização Turbinada</h2>
+      <p><small>27/09/2025</small></p>
+      <img src="imagens/organizacao.jpg" alt="Organização">
+      <p>Dividir tarefas em blocos de 25 minutos faz render MUITO mais. ☕📚 Testa aí!</p>
+    </article>
 
-  <article>
-    <h2>Dica Tech</h2>
-    <p><small>Publicado em 27/09/2025</small></p>
-    <img src="imagens/tech.jpg" alt="Dica Tech">
-    <p>Se você tá começando a mexer com sites, o GitHub Pages e o Netlify são perfeitos pra colocar seu projeto no ar de graça. 💻🚀</p>
-  </article>
+    <article>
+      <h2>Dica Tech</h2>
+      <p><small>27/09/2025</small></p>
+      <img src="imagens/tech.jpg" alt="Dica Tech">
+      <p>GitHub Pages e Netlify são perfeitos pra colocar seu projeto no ar de graça. 💻🚀</p>
+    </article>
 
-  <article>
-    <h2>Reflexão do Dia</h2>
-    <p><small>Publicado em 27/09/2025</small></p>
-    <img src="imagens/reflexao.jpg" alt="Reflexão">
-    <p>Às vezes a gente só percebe o quanto cresceu quando olha pra trás. Celebre cada pequena conquista! ✨</p>
-  </article>
+    <article>
+      <h2>Reflexão do Dia</h2>
+      <p><small>27/09/2025</small></p>
+      <img src="imagens/reflexao.jpg" alt="Reflexão">
+      <p>Às vezes a gente só percebe o quanto cresceu quando olha pra trás. Celebre cada pequena conquista! ✨</p>
+    </article>
+  </div>
 
   <aside>
     <h3>Sobre mim</h3>
@@ -157,14 +167,11 @@
 </main>
 
 <footer>
+  <a href="https://www.instagram.com/_sousamoises" target="_blank">Instagram</a>
+  <a href="https://github.com/moisesalves.contact-hub" target="_blank">GitHub</a>
+  <a href="mailto:moisesalves.contact@gmail.com">E-mail</a>
   <p>© 2025 - Moisés Sousa | Site criado em 26/09/2025</p>
 </footer>
-
-<script>
-function toggleMenu(){
-  document.getElementById('nav').classList.toggle('active');
-}
-</script>
 
 </body>
 </html>
