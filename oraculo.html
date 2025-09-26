@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bola 8 Mágica</title>
+<style>
+  body {
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    background: linear-gradient(135deg,#008345,#00b87a);
+    font-family:'Roboto', sans-serif;
+    color:#fff;
+    text-align:center;
+    padding:20px;
+  }
+
+  h1 { font-size:3rem; margin-bottom:20px; text-shadow:0 2px 6px rgba(0,0,0,0.5); }
+  input {
+    padding:15px;
+    width:300px;
+    border-radius:10px;
+    border:none;
+    font-size:1.2rem;
+    margin-bottom:20px;
+    outline:none;
+  }
+  button {
+    padding:15px 30px;
+    font-size:1.2rem;
+    border:none;
+    border-radius:10px;
+    background:#ffd700;
+    color:#000;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+  }
+  button:hover { background:#ffea00; transform:translateY(-3px); }
+
+  .resposta {
+    margin-top:30px;
+    background:rgba(0,0,0,0.2);
+    padding:20px 30px;
+    border-radius:15px;
+    font-size:1.5rem;
+    min-height:50px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    max-width:400px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Bola 8 Mágica 🧙‍♂️</h1>
+<input type="text" id="pergunta" placeholder="Digite sua pergunta...">
+<button onclick="responder()">Perguntar</button>
+
+<div class="resposta" id="resposta">Faça sua pergunta!</div>
+
+<script>
+const respostas = [
+  "Sim ✅",
+  "Não ❌",
+  "Talvez 🤔",
+  "Com certeza! 😎",
+  "Duvido 😏",
+  "Não conte com isso...",
+  "Provavelmente 🤷‍♂️",
+  "Sem dúvidas! ✨",
+  "Pergunta melhor depois 😅",
+  "100% certo!",
+  "Nem pensar! 😬",
+  "Vai que dá certo 😎",
+  "Confia na sorte 🍀",
+  "Não sei, tente de novo 🤔",
+  "É possível 😏",
+  "Claro que sim! 🌟",
+  "Não agora...",
+  "Sim, mas com cautela ⚠️",
+  "Tá na dúvida? Melhor esperar...",
+  "Vai fundo, mas cuidado 😎",
+  "Absolutamente!",
+  "Não é uma boa ideia 😅",
+  "Talvez mais tarde...",
+  "Sim! Mas com estilo ✨",
+  "Não conte com milagres 😬",
+  "Pode apostar 💸",
+  "Não, acredite em outra coisa 😎"
+];
+
+function responder() {
+  const pergunta = document.getElementById("pergunta").value;
+  if(pergunta.trim() === "") {
+    document.getElementById("resposta").textContent = "Digite uma pergunta primeiro!";
+    return;
+  }
+  const aleatorio = respostas[Math.floor(Math.random() * respostas.length)];
+  document.getElementById("resposta").textContent = aleatorio;
+}
+</script>
+
+</body>
+</html>
