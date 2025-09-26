@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora Bonita</title>
+<style>
+  body {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    background: linear-gradient(135deg, #008345, #00b87a);
+    font-family:'Roboto', sans-serif;
+  }
+
+  .calculator {
+    background:#fff;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    width:320px;
+  }
+
+  .display {
+    width:100%;
+    height:60px;
+    background:#f0f0f0;
+    border-radius:10px;
+    text-align:right;
+    font-size:2rem;
+    padding:10px 15px;
+    margin-bottom:20px;
+    box-shadow: inset 0 4px 6px rgba(0,0,0,0.1);
+    overflow-x:auto;
+  }
+
+  .buttons {
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:15px;
+  }
+
+  .buttons button {
+    padding:20px;
+    font-size:1.5rem;
+    border:none;
+    border-radius:10px;
+    background:#008345;
+    color:#fff;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 4px 8px rgba(0,0,0,0.2);
+  }
+
+  .buttons button:hover {
+    background:#00b87a;
+    transform:translateY(-3px);
+    box-shadow:0 6px 12px rgba(0,0,0,0.3);
+  }
+
+  .buttons .operator { background:#ffd700; color:#000; }
+  .buttons .operator:hover { background:#ffea00; }
+  .buttons .equal { background:#ff5722; color:#fff; grid-column: span 2; }
+  .buttons .equal:hover { background:#ff784e; }
+</style>
+</head>
+<body>
+
+<div class="calculator">
+  <div class="display" id="display">0</div>
+  <div class="buttons">
+    <button onclick="clearDisplay()">C</button>
+    <button onclick="appendValue('/')">/</button>
+    <button onclick="appendValue('*')">*</button>
+    <button onclick="appendValue('-')">-</button>
+
+    <button onclick="appendValue('7')">7</button>
+    <button onclick="appendValue('8')">8</button>
+    <button onclick="appendValue('9')">9</button>
+    <button onclick="appendValue('+')">+</button>
+
+    <button onclick="appendValue('4')">4</button>
+    <button onclick="appendValue('5')">5</button>
+    <button onclick="appendValue('6')">6</button>
+    <button onclick="appendValue('.')">.</button>
+
+    <button onclick="appendValue('1')">1</button>
+    <button onclick="appendValue('2')">2</button>
+    <button onclick="appendValue('3')">3</button>
+    <button class="equal" onclick="calculateResult()">=</button>
+
+    <button onclick="appendValue('0')" style="grid-column: span 2;">0</button>
+  </div>
+</div>
+
+<script>
+  let display = document.getElementById('display');
+  let currentInput = '';
+
+  function appendValue(val) {
+    if(currentInput==='0') currentInput='';
+    currentInput += val;
+    display.textContent = currentInput;
+  }
+
+  function clearDisplay() {
+    currentInput = '';
+    display.textContent = '0';
+  }
+
+  function calculateResult() {
+    try {
+      currentInput = eval(currentInput).toString();
+      display.textContent = currentInput;
+    } catch {
+      display.textContent = 'Erro';
+      currentInput = '';
+    }
+  }
+</script>
+
+</body>
+</html>
