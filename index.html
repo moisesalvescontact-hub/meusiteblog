@@ -1,173 +1,193 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Site do Moisés</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  * { margin:0; padding:0; box-sizing:border-box; scroll-behavior: smooth; }
-  body { font-family:'Roboto', sans-serif; background:#f0f2f5; color:#333; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moisés Site</title>
+  <style>
+    /* Reset e fontes */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f2f5;
+      color: #333;
+    }
 
-  /* Header */
-  header {
-    position: relative;
-    background: linear-gradient(90deg,#008345,#00b87a);
-    color:#fff;
-    text-align:center;
-    padding:60px 20px;
-    overflow:hidden;
-  }
-  header h1 { font-size:3rem; margin-bottom:10px; animation: slideDown 1s ease-out; }
-  header p { font-size:1.3rem; font-weight:400; animation: fadeIn 2s ease-in; }
+    /* Header */
+    header {
+      background: linear-gradient(90deg, #008345, #00b87a);
+      color: #fff;
+      text-align: center;
+      padding: 40px 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
 
-  @keyframes slideDown { from { transform:translateY(-50px); opacity:0; } to { transform:translateY(0); opacity:1; } }
-  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    /* Nav */
+    nav {
+      background: #0b2400;
+      display: flex;
+      justify-content: center;
+      padding: 15px 0;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #ffd700;
+    }
 
-  /* Nav */
-  nav {
-    background:#0b2400;
-    display:flex;
-    justify-content:center;
-    padding:15px 0;
-    position: sticky;
-    top:0;
-    z-index:100;
-  }
-  nav a {
-    color:#fff;
-    margin:0 20px;
-    text-decoration:none;
-    font-weight:bold;
-    font-size:1.1rem;
-    transition:0.3s;
-  }
-  nav a:hover { color:#ffd700; }
+    /* Main e posts */
+    main {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 30px auto;
+      gap: 20px;
+      padding: 0 10px;
+    }
+    article {
+      background: #fff;
+      border-radius: 12px;
+      padding: 25px;
+      flex: 1 1 400px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    article:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    article h2 {
+      margin-bottom: 10px;
+      color: #008345;
+    }
+    article p small {
+      color: #888;
+    }
 
-  /* Hamburger Menu Mobile */
-  .menu-toggle { display:none; cursor:pointer; position:absolute; right:20px; top:20px; flex-direction:column; gap:5px; }
-  .menu-toggle div { width:25px; height:3px; background:#fff; }
+    /* Aside */
+    aside {
+      background: #fff;
+      border-radius: 12px;
+      padding: 25px;
+      flex: 1 1 250px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      height: fit-content;
+    }
+    aside h3 {
+      margin-bottom: 15px;
+      color: #008345;
+    }
+    aside ul {
+      list-style: none;
+    }
+    aside ul li {
+      margin-bottom: 10px;
+    }
+    aside ul li a {
+      color: #0b2400;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    aside ul li a:hover {
+      color: #008345;
+    }
 
-  @media(max-width:768px){
-    nav { flex-direction:column; display:none; }
-    nav.active { display:flex; }
-    .menu-toggle { display:flex; }
-  }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #0b2400;
+      color: #fff;
+      margin-top: 40px;
+      font-size: 0.9rem;
+    }
 
-  /* Main */
-  main { display:flex; flex-wrap:wrap; max-width:1200px; margin:30px auto; gap:20px; padding:0 10px; }
-
-  article {
-    background:#fff;
-    border-radius:12px;
-    padding:25px;
-    flex:1 1 400px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  article:hover { transform:translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.15); }
-  article h2 { margin-bottom:10px; color:#008345; }
-  article p small { color:#888; }
-  article img { width:100%; border-radius:8px; margin:15px 0; }
-
-  /* Aside */
-  aside {
-    background:#fff;
-    border-radius:12px;
-    padding:25px;
-    flex:1 1 250px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
-    height:fit-content;
-  }
-  aside h3 { margin-bottom:15px; color:#008345; }
-  aside ul { list-style:none; }
-  aside ul li { margin-bottom:10px; display:flex; align-items:center; gap:8px; }
-  aside ul li a { color:#0b2400; text-decoration:none; transition:0.3s; }
-  aside ul li a:hover { color:#008345; }
-
-  /* Footer */
-  footer {
-    text-align:center;
-    padding:20px;
-    background:#0b2400;
-    color:#fff;
-    margin-top:40px;
-    font-size:0.9rem;
-  }
-
-  /* Responsivo */
-  @media(max-width:900px){ main{flex-direction:column;align-items:center;} article{margin-right:0;} }
-</style>
+    /* Responsivo */
+    @media (max-width: 900px) {
+      main {
+        flex-direction: column;
+        align-items: center;
+      }
+      article {
+        margin-right: 0;
+      }
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Site do Moisés</h1>
+    <p>Compartilhando ideias e conteúdos</p>
+  </header>
 
-<header>
-  <h1>Site do Moisés</h1>
-  <p>Compartilhando ideias, projetos e descobertas 🚀</p>
-  <div class="menu-toggle" onclick="toggleMenu()">
-    <div></div><div></div><div></div>
-  </div>
-</header>
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="contato.html">Contato</a>
+  </nav>
 
-<nav id="nav">
-  <a href="index.html">Início</a>
-  <a href="sobre.html">Sobre</a>
-  <a href="contato.html">Contato</a>
-</nav>
+  <main>
+    <article>
+      <h2>Site no Ar</h2>
+      <p><small>Publicado em 26/09/2025</small></p>
+      <p>Estou lançando o meu site no ar. 🚀</p>
+    </article>
 
-<main>
-  <article>
-    <h2>Site no Ar</h2>
-    <p><small>Publicado em 26/09/2025</small></p>
-    <img src="imagens/site-ar.jpg" alt="Site no ar">
-    <p>Estou lançando o meu site no ar. 🚀 Confira e explore todos os conteúdos!</p>
-  </article>
+    <article>
+      <h2>Primeiro Post do Site</h2>
+      <p><small>Publicado em 26/09/2025</small></p>
+      <p>Hoje aprendi algo novo sobre organização: dividir tarefas em blocos de 25 minutos faz render MUITO mais. ☕📚 Testa aí e me conta depois!</p>
+    </article>
 
-  <article>
-    <h2>Organização Turbinada</h2>
-    <p><small>Publicado em 27/09/2025</small></p>
-    <img src="imagens/organizacao.jpg" alt="Organização">
-    <p>Hoje aprendi algo novo sobre produtividade: dividir tarefas em blocos de 25 minutos faz render MUITO mais. ☕📚 Testa aí!</p>
-  </article>
+    <article>
+      <h2>Segundo Post do site </h2>
+      <p><small>Publicado em 26/09/2025</small></p>
+      <p>Se você tá começando a mexer com sites, o GitHub Pages e o Netlify são perfeitos pra colocar seu projeto no ar de graça. 💻🚀 Vale cada segundo de teste e aprendizado!</p>
+    </article>
 
-  <article>
-    <h2>Dica Tech</h2>
-    <p><small>Publicado em 27/09/2025</small></p>
-    <img src="imagens/tech.jpg" alt="Dica Tech">
-    <p>Se você tá começando a mexer com sites, o GitHub Pages e o Netlify são perfeitos pra colocar seu projeto no ar de graça. 💻🚀</p>
-  </article>
+    
+    <article>
+      <h2>Terceiro Post do site </h2>
+      <p><small>Publicado em 26/09/2025</small></p>
+      <p>Às vezes a gente só percebe o quanto cresceu quando olha pra trás. Hoje, celebre cada pequena conquista, mesmo as mais simples. Um passo de cada vez, mas sempre em frente! ✨</p>
+    </article>
 
-  <article>
-    <h2>Reflexão do Dia</h2>
-    <p><small>Publicado em 27/09/2025</small></p>
-    <img src="imagens/reflexao.jpg" alt="Reflexão">
-    <p>Às vezes a gente só percebe o quanto cresceu quando olha pra trás. Celebre cada pequena conquista! ✨</p>
-  </article>
+    <aside>
+      <h3>Sobre mim</h3>
+      <p>Um site para compartilhar ideias</p>
+      <h3>Links úteis</h3>
+      <ul>
+        <li><a href="https://www.instagram.com/_sousamoises" target="_blank">Instagram</a></li>
+        <li><a href="https://github.com/moisesalves.contact-hub" target="_blank">GitHub</a></li>
+        <li><a href="mailto:moisesalves.contact@gmail.com">Contato</a></li>
+      </ul>
+    </aside>
+  </main>
 
-  <aside>
-    <h3>Sobre mim</h3>
-    <p>Oi! Eu sou o Moisés, apaixonado por tecnologia, ideias criativas e por compartilhar conhecimento. Aqui mostro meus projetos, experiências e aprendizados do dia a dia. 🚀</p>
-    <h3>Links úteis</h3>
-    <ul>
-      <li>📸 <a href="https://www.instagram.com/_sousamoises" target="_blank">Instagram</a></li>
-      <li>💻 <a href="https://github.com/moisesalves.contact-hub" target="_blank">GitHub</a></li>
-      <li>✉️ <a href="mailto:moisesalves.contact@gmail.com">Contato</a></li>
-    </ul>
-  </aside>
-</main>
-
-<footer>
-  <p>© 2025 - Moisés Sousa | Site criado em 26/09/2025</p>
-</footer>
-
-<script>
-function toggleMenu(){
-  document.getElementById('nav').classList.toggle('active');
-}
-</script>
-
+  <footer>
+    <p>© 2025 - Moisés Sousa - Site criado em 26/09/25</p>
+  </footer>
 </body>
-</html>
+</html> 
 
 
 
