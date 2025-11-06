@@ -192,63 +192,185 @@
 
     function speakText(text){
       if(!('speechSynthesis' in window)) return;
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>bunga.com — carregando pra sempre</title>
+  <style>
+    :root{--green:#0fa65a;--white:#ffffff;--bg:#f7fff8}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,var(--bg),#ecfff0);color:var(--green)}
+    .wrap{height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:28px;text-align:center;padding:40px}
+    .brand{font-weight:800;font-size:48px;letter-spacing:2px}
+    .tag{font-size:14px;color:#0b6b3f}
+
+    .big-btn{
+      background:var(--green);color:var(--white);border:none;padding:18px 32px;border-radius:999px;font-size:20px;cursor:pointer;box-shadow:0 6px 18px rgba(15,166,90,0.18);transition:transform .18s ease
+    }
+    .big-btn:active{transform:translateY(2px)}
+
+    .panel{width:min(860px,94%);background:#fff;border-radius:12px;padding:28px;box-shadow:0 10px 30px rgba(6,60,29,0.06);display:none;gap:18px}
+    .loading-row{display:flex;align-items:center;gap:18px}
+    .progress{flex:1;background:linear-gradient(90deg,#eaf7ee,#f3fff9);height:14px;border-radius:999px;overflow:hidden;position:relative}
+    .bar{height:100%;width:0%;background:linear-gradient(90deg,var(--green),#2ad07a);transition:width .5s linear}
+    .dots{width:56px;display:flex;justify-content:space-between}
+    .dot{width:10px;height:10px;border-radius:50%;background:var(--green);opacity:.2;animation:blink 1.2s infinite}
+    .dot:nth-child(2){animation-delay:.2s}
+    .dot:nth-child(3){animation-delay:.4s}
+    @keyframes blink{0%{opacity:.2;transform:translateY(0)}50%{opacity:1;transform:translateY(-6px)}100%{opacity:.2;transform:translateY(0)}}
+
+    .phrase{font-size:20px;font-weight:600;color:#064e31;min-height:32px}
+    .muted{font-size:13px;color:#7aa98a}
+
+    footer{position:fixed;left:16px;bottom:12px;font-size:12px;color:#0b6b3f;opacity:.9}
+
+    /* small screens */
+    @media (max-width:520px){.brand{font-size:34px}.panel{padding:18px}.big-btn{font-size:18px;padding:14px 22px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand">bunga.com</div>
+    <div class="tag">o melhor site da web</div>
+
+    <button id="enterBtn" class="big-btn" aria-label="entrar">Clique e entrar</button>
+    <button id="trollBtn" class="big-btn" style="display:none;">Clique se for corajoso 😈</button>
+
+    <div id="panel" class="panel" role="region" aria-live="polite">
+      <div class="loading-row">
+        <div class="progress" aria-hidden="true"><div id="bar" class="bar"></div></div>
+        <div class="dots" aria-hidden="true">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+
+      <div id="phrase" class="phrase">Preparando tudo... só um instante.</div>
+      <div class="muted">Dica: se o som não começar, habilite o áudio do navegador.</div>
+    </div>
+  </div>
+  <footer>© bunga.com — Moisés Sousa</footer>
+
+  <script>
+    const frases = [
+      'Carregamento iniciando…',
+      'Quase lá, segura firme!',
+      'Preparando tudo… só mais um instante.',
+      'Carregando coisas importantes…',
+      'Calma, isso tá quase pronto.',
+      'Só alguns ajustes finais…',
+      'Confia, tá indo.',
+      'Mais um segundinho…',
+      'Atualizando dados essenciais…',
+      'Isso é rápido, né? (ok, talvez nem tanto 😂)',
+      'Hmm… tá demorando mais que o normal…',
+      'Ainda carregando… respira.',
+      'Parece que o servidor tá tirando uma soneca.',
+      'Mano, não desiste ainda, tá quase!',
+      'Já tentou reiniciar a vida? Ops, só o site mesmo.',
+      'Quase lá… mas só quase mesmo.',
+      'Tá vendo aqueles pontinhos? Eles tão rindo de você.',
+      'Se a internet fosse café, esse site já tava pronto.',
+      'Só esperando… e esperando… e esperando…',
+      'Quase… mas não muito.',
+      'Tá me testando, né?',
+      'Mano, ainda tá carregando.',
+      'Ok, agora tá engraçado.',
+      'Será que vai sair do 92%? Duvido.',
+      'Tá bom, confia… mas não muito.',
+      'Sério, você ainda tá aí?',
+      'Calma, tá quase… ou não.',
+      'Se for desistir, agora é a hora 😎',
+      'Quase lá… Mentira, nem tá quase.',
+      'Carregamento épico: nível de paciência máxima.',
+      'Mano, isso não vai carregar, sai daqui!',
+      'Sai fora, isso é o bunga site — nunca carrega!',
+      'Relaxa, o site é só isso mesmo kkk',
+      'Ok, agora você já perdeu tempo suficiente.',
+      'Se ainda tá olhando, você é corajoso ou burro.',
+      'Nem eu sei mais se vai carregar…',
+      'Última chance: desiste e vai tomar um café.',
+      'Já cansou? Eu também.',
+      'Mano, sério, para de esperar.',
+      'Bunga.com: prometemos nada, entregamos menos 😂'
+    ];
+
+    const enterBtn = document.getElementById('enterBtn');
+    const trollBtn = document.getElementById('trollBtn');
+    const panel = document.getElementById('panel');
+    const bar = document.getElementById('bar');
+    const phraseEl = document.getElementById('phrase');
+
+    let progress = 0;
+    let phraseIdx = 0;
+    let progressTimer = null;
+    let phraseTimer = null;
+
+    function choosePtVoice(){
+      const voices = speechSynthesis.getVoices();
+      let v = voices.find(x => /pt-BR|Portuguese Brazil/i.test(x.lang)) || voices.find(x=>/pt/i.test(x.lang)) || voices[0];
+      return v;
+    }
+
+    function speakText(text){
+      if(!('speechSynthesis' in window)) return;
       const utter = new SpeechSynthesisUtterance(text);
       utter.lang = 'pt-BR';
       const v = choosePtVoice();
       if(v) utter.voice = v;
-      // gentle rate so it sounds like an announcer
       utter.rate = 0.95;
       utter.pitch = 1.0;
       speechSynthesis.speak(utter);
     }
 
     function startLoop(){
-      panel.style.display='block';
-      // phrase rotation every 4s
+      panel.style.display = 'block';
       phraseEl.textContent = frases[phraseIdx];
       speakText(frases[phraseIdx]);
+
       phraseTimer = setInterval(()=>{
         phraseIdx = (phraseIdx+1) % frases.length;
         phraseEl.textContent = frases[phraseIdx];
         speakText(frases[phraseIdx]);
       }, 4000);
 
-      // fake progress that never finishes: cycles to 90-98% then drop back
-      progress = Math.floor(Math.random()*6)+6; // start small
+      progress = Math.floor(Math.random()*6)+6;
       bar.style.width = progress + '%';
       progressTimer = setInterval(()=>{
-        // increase by random tiny amount
         progress += Math.random()*6 + 2;
         if(progress >= 92 + Math.random()*6){
-          // simulate "stall" — back down a bit and keep looping
           progress = 58 + Math.random()*12;
         }
-        // cap so it never hits 100
         if(progress > 99) progress = 99.3;
         bar.style.width = Math.floor(progress) + '%';
       }, 700);
+
+      // mostrar botão surpresa depois de 90s
+      setTimeout(()=>{
+        trollBtn.style.display = 'inline-block';
+        phraseEl.textContent = "Ops… olha o que apareceu!";
+        speakText("Ops… olha o que apareceu!");
+      }, 90000);
     }
 
-    // handle interaction and autoplay policies
     enterBtn.addEventListener('click', ()=>{
-      // stop any speech first
       speechSynthesis.cancel();
-      // try to populate voices (some browsers load asynchronously)
       speechSynthesis.getVoices();
-
       enterBtn.style.display='none';
       startLoop();
     });
 
-    // keyboard accessibility: Enter or Space
+    trollBtn.addEventListener('click', ()=>{
+      window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'; // troca pelo vídeo da zoeira 🖕
+    });
+
     enterBtn.addEventListener('keyup', (e)=>{
       if(e.key === 'Enter' || e.key === ' ') enterBtn.click();
     });
 
-    // if user refreshes and clicks again, keep behavior consistent
-    // optional: allow user to click the brand to stop everything
     document.querySelector('.brand').addEventListener('click', ()=>{
-      // toggle speak off
       if(phraseTimer){
         clearInterval(phraseTimer); phraseTimer=null;
         clearInterval(progressTimer); progressTimer=null;
@@ -259,10 +381,8 @@
       }
     });
 
-    // friendly fallback text for no-speech
     window.addEventListener('load', ()=>{
       if(!('speechSynthesis' in window)){
-        // show a short note
         const note = document.createElement('div');
         note.style.marginTop='12px';
         note.style.fontSize='13px';
@@ -273,4 +393,3 @@
     });
   </script>
 </body>
-</html>
