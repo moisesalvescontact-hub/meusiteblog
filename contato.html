@@ -1,160 +1,177 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contato</title>
-<style>
-    /* Reset e fontes */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f0f2f5;
-      color: #333;
-    }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>bunga.com — carregando pra sempre</title>
+  <style>
+    :root{--green:#0fa65a;--white:#ffffff;--bg:#f7fff8}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,var(--bg),#ecfff0);color:var(--green)}
+    .wrap{height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:28px;text-align:center;padding:40px}
+    .brand{font-weight:800;font-size:48px;letter-spacing:2px}
+    .tag{font-size:14px;color:#0b6b3f}
 
-    /* Header */
-    header {
-      background: linear-gradient(90deg, #008345, #00b87a);
-      color: #fff;
-      text-align: center;
-      padding: 40px 20px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-    }
-    header p {
-      font-size: 1.2rem;
-      font-weight: 300;
-    }
+    .big-btn{
+      background:var(--green);color:var(--white);border:none;padding:18px 32px;border-radius:999px;font-size:20px;cursor:pointer;box-shadow:0 6px 18px rgba(15,166,90,0.18);transition:transform .18s ease}
+    .big-btn:active{transform:translateY(2px)}
 
-    /* Nav */
-    nav {
-      background: #0b2400;
-      display: flex;
-      justify-content: center;
-      padding: 15px 0;
-    }
-    nav a {
-      color: #fff;
-      margin: 0 20px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.1rem;
-      transition: color 0.3s;
-    }
-    nav a:hover {
-      color: #ffd700;
-    }
+    .panel{width:min(860px,94%);background:#fff;border-radius:12px;padding:28px;box-shadow:0 10px 30px rgba(6,60,29,0.06);display:none;gap:18px}
+    .loading-row{display:flex;align-items:center;gap:18px}
+    .progress{flex:1;background:linear-gradient(90deg,#eaf7ee,#f3fff9);height:14px;border-radius:999px;overflow:hidden;position:relative}
+    .bar{height:100%;width:0%;background:linear-gradient(90deg,var(--green),#2ad07a);transition:width .5s linear}
+    .dots{width:56px;display:flex;justify-content:space-between}
+    .dot{width:10px;height:10px;border-radius:50%;background:var(--green);opacity:.2;animation:blink 1.2s infinite}
+    .dot:nth-child(2){animation-delay:.2s}
+    .dot:nth-child(3){animation-delay:.4s}
+    @keyframes blink{0%{opacity:.2;transform:translateY(0)}50%{opacity:1;transform:translateY(-6px)}100%{opacity:.2;transform:translateY(0)}}
 
-    /* Main e posts */
-    main {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      max-width: 1200px;
-      margin: 30px auto;
-      gap: 20px;
-      padding: 0 10px;
-    }
-    article {
-      background: #fff;
-      border-radius: 12px;
-      padding: 25px;
-      flex: 1 1 400px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    article:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    }
-    article h2 {
-      margin-bottom: 10px;
-      color: #008345;
-    }
-    article p small {
-      color: #888;
-    }
+    .phrase{font-size:20px;font-weight:600;color:#064e31;min-height:32px}
+    .muted{font-size:13px;color:#7aa98a}
 
-    /* Aside */
-    aside {
-      background: #fff;
-      border-radius: 12px;
-      padding: 25px;
-      flex: 1 1 250px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      height: fit-content;
-    }
-    aside h3 {
-      margin-bottom: 15px;
-      color: #008345;
-    }
-    aside ul {
-      list-style: none;
-    }
-    aside ul li {
-      margin-bottom: 10px;
-    }
-    aside ul li a {
-      color: #0b2400;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    aside ul li a:hover {
-      color: #008345;
-    }
+    footer{position:fixed;left:16px;bottom:12px;font-size:12px;color:#0b6b3f;opacity:.9}
 
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #0b2400;
-      color: #fff;
-      margin-top: 40px;
-      font-size: 0.9rem;
-    }
-
-    /* Responsivo */
-    @media (max-width: 900px) {
-      main {
-        flex-direction: column;
-        align-items: center;
-      }
-      article {
-        margin-right: 0;
-      }
-    }
+    /* small screens */
+    @media (max-width:520px){.brand{font-size:34px}.panel{padding:18px}.big-btn{font-size:18px;padding:14px 22px}}
   </style>
 </head>
 <body>
-  <header>
-    <h1>Contato</h1>
-    <p>Fale comigo</p>
-  </header>
+  <div class="wrap">
+    <div class="brand">bunga.com</div>
+    <div class="tag">o site que promete carregar — e nunca carrega</div>
 
-  <nav>
-    <a href="index.html">Início</a>
-    <a href="sobre.html">Sobre</a>
-    <a href="contato.html">Contato</a>
-  </nav>
+    <button id="enterBtn" class="big-btn" aria-label="entrar">Clique e entrar</button>
 
-  <main>
-    <article>
-      <h2>Entre em contato</h2>
-      <p>Você pode me mandar um email: <b>moisesalves.contact@gmail.com</b></p>
-      <p>Ou me chamar no Instagram: <a href="#">@moisessouves</a></p>
-    </article>
-  </main>
+    <div id="panel" class="panel" role="region" aria-live="polite">
+      <div class="loading-row">
+        <div class="progress" aria-hidden="true"><div id="bar" class="bar"></div></div>
+        <div class="dots" aria-hidden="true">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
 
-  <footer>
-    <p>© 2025 - Moisés Sousa</p>
-  </footer>
+      <div id="phrase" class="phrase">Preparando tudo... só um instante.</div>
+      <div class="muted">Dica: se o som não começar, habilite o áudio do navegador.</div>
+    </div>
+
+  </div>
+  <footer>© bunga.com — verde e branco forever</footer>
+
+  <script>
+    // frases para rotacionar
+    const frases = [
+      'Espere, já vai carregar...',
+      'Só mais um segundo, confia...',
+      'Quase lá — segura a ansiedade!',
+      'Carregando coisas importantíssimas...',
+      'Ajustando umas coisinhas nos servidores...',
+      'Não saia, volta logo — tá quase!',
+      'Respira, pega um café, a página trabalha...',
+      'Isso aqui foi feito só pra te enrolar — mas com carinho',
+      'Só verificando umas dependências invisíveis...',
+      'A vida é curta, o carregamento é longo.'
+    ];
+
+    const enterBtn = document.getElementById('enterBtn');
+    const panel = document.getElementById('panel');
+    const bar = document.getElementById('bar');
+    const phraseEl = document.getElementById('phrase');
+
+    let progress = 0;
+    let phraseIdx = 0;
+    let progressTimer=null;
+    let phraseTimer=null;
+    let speaking = false;
+
+    function choosePtVoice(){
+      const voices = speechSynthesis.getVoices();
+      // prefer pt-BR
+      let v = voices.find(x => /pt-BR|Portuguese \(Brazil\)/i.test(x.lang)) || voices.find(x=>/pt/i.test(x.lang)) || voices[0];
+      return v;
+    }
+
+    function speakText(text){
+      if(!('speechSynthesis' in window)) return;
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'pt-BR';
+      const v = choosePtVoice();
+      if(v) utter.voice = v;
+      // gentle rate so it sounds like an announcer
+      utter.rate = 0.95;
+      utter.pitch = 1.0;
+      speechSynthesis.speak(utter);
+    }
+
+    function startLoop(){
+      panel.style.display='block';
+      // phrase rotation every 4s
+      phraseEl.textContent = frases[phraseIdx];
+      speakText(frases[phraseIdx]);
+      phraseTimer = setInterval(()=>{
+        phraseIdx = (phraseIdx+1) % frases.length;
+        phraseEl.textContent = frases[phraseIdx];
+        speakText(frases[phraseIdx]);
+      }, 4000);
+
+      // fake progress that never finishes: cycles to 90-98% then drop back
+      progress = Math.floor(Math.random()*6)+6; // start small
+      bar.style.width = progress + '%';
+      progressTimer = setInterval(()=>{
+        // increase by random tiny amount
+        progress += Math.random()*6 + 2;
+        if(progress >= 92 + Math.random()*6){
+          // simulate "stall" — back down a bit and keep looping
+          progress = 58 + Math.random()*12;
+        }
+        // cap so it never hits 100
+        if(progress > 99) progress = 99.3;
+        bar.style.width = Math.floor(progress) + '%';
+      }, 700);
+    }
+
+    // handle interaction and autoplay policies
+    enterBtn.addEventListener('click', ()=>{
+      // stop any speech first
+      speechSynthesis.cancel();
+      // try to populate voices (some browsers load asynchronously)
+      speechSynthesis.getVoices();
+
+      enterBtn.style.display='none';
+      startLoop();
+    });
+
+    // keyboard accessibility: Enter or Space
+    enterBtn.addEventListener('keyup', (e)=>{
+      if(e.key === 'Enter' || e.key === ' ') enterBtn.click();
+    });
+
+    // if user refreshes and clicks again, keep behavior consistent
+    // optional: allow user to click the brand to stop everything
+    document.querySelector('.brand').addEventListener('click', ()=>{
+      // toggle speak off
+      if(phraseTimer){
+        clearInterval(phraseTimer); phraseTimer=null;
+        clearInterval(progressTimer); progressTimer=null;
+        speechSynthesis.cancel();
+        phraseEl.textContent = 'Modo pausa ativado.';
+        enterBtn.style.display='inline-block';
+        panel.style.display='none';
+      }
+    });
+
+    // friendly fallback text for no-speech
+    window.addEventListener('load', ()=>{
+      if(!('speechSynthesis' in window)){
+        // show a short note
+        const note = document.createElement('div');
+        note.style.marginTop='12px';
+        note.style.fontSize='13px';
+        note.style.color='#7aa98a';
+        note.textContent = 'Seu navegador não suporta voz — mas o carregamento ainda vai enrolar.';
+        document.querySelector('.wrap').appendChild(note);
+      }
+    });
+  </script>
 </body>
 </html>
